@@ -1,0 +1,173 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Savemom API Document",
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:3000/api"
+        }
+    ],
+    "components": {
+        "securitySchemes": {
+            "BearerAuth": {
+                "type": "http",
+                "scheme": "bearer",
+                "bearerFormat": "JWT"
+            }
+        }
+    },
+    "security": [
+        {
+            "bearerAuth": []
+        }
+    ],
+    "tags": [
+        {
+            "name": "Login"
+        },
+        {
+            "name": "Reports"
+        }
+    ],
+    "paths": {
+        "/login": {
+            "post": {
+                "tags": [
+                    "Login"
+                ],
+                "summary": "Login to Savemom",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    }
+                                },
+                                "required": [
+                                    "email",
+                                    "password"
+                                ]
+                            },
+                            "examples": {
+                                "example1": {
+                                    "value": {
+                                        "email": "tcsadmin@gmail.com",
+                                        "password": "Admin@123"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "content": {
+                            "application/json": {}
+                        }
+                    }
+                }
+            }
+        },
+        "/reports/subscription-history": {
+            "post": {
+                "tags": [
+                    "Reports"
+                ],
+                "summary": "Subscription reports",
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "searchText": {
+                                        "type": "string"
+                                    },
+                                    "page": {
+                                        "type": "integer"
+                                    },
+                                    "pageSize": {
+                                        "type": "integer"
+                                    }
+                                }
+                            },
+                            "examples": {
+                                "example1": {
+                                    "value": {
+                                        "searchText": "",
+                                        "page": 1,
+                                        "pageSize": 2
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "content": {
+                            "application/json": {}
+                        }
+                    }
+                }
+            }
+        },
+        "/reports/subscription-history/excel-report": {
+            "post": {
+                "tags": [
+                    "Reports"
+                ],
+                "summary": "Download subscription history excel reports",
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "searchText": {
+                                        "type": "string"
+                                    }
+                                }
+                            },
+                            "examples": {
+                                "example1": {
+                                    "value": {
+                                        "searchText": "completed"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "content": {
+                            "application/json": {}
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
